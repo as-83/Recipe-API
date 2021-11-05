@@ -50,4 +50,10 @@ public class Recipe {
     @NotEmpty
     @Size(min = 1)
     private List<String> directions;
+
+    @ManyToOne()
+    @JoinColumn(name = "author")
+    //@Column(name = "author")
+    @Getter(onMethod_=@JsonIgnore)
+    private User author;
 }

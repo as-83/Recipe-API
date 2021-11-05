@@ -6,7 +6,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import recipes.model.Recipe;
+import recipes.model.User;
+import recipes.repos.UserRepo;
 import recipes.services.RecipeService;
+import recipes.services.UserService;
 
 import javax.validation.Valid;
 import java.util.Collections;
@@ -16,10 +19,12 @@ import java.util.Optional;
 @RestController
 public class RecipeController {
     final RecipeService recipeService;
+    final UserService userService;
 
     @Autowired
-    public RecipeController(RecipeService recipeService) {
+    public RecipeController(RecipeService recipeService, UserRepo userRepo, UserService userService) {
         this.recipeService = recipeService;
+        this.userService = userService;
     }
 
     @GetMapping("/api/recipe/{id}")
@@ -91,5 +96,18 @@ public class RecipeController {
         return ResponseEntity.status(status)
                 .headers(responseHeaders)
                 .body(recipes);
+    }
+
+    @PostMapping("/api/register")
+    public ResponseEntity<String> addNewUser(@RequestBody User user){
+        HttpHeaders responseHeaders = new HttpHeaders();
+        responseHeaders.set("Content-Type", "application/json");
+        HttpStatus status = HttpStatus.OK;
+        if (!userService.tryToAddUser(user)) {
+            status = HttpStatus.BAD_REQUEST;
+        }
+        return ResponseEntity.status(status)
+                .headers(responseHeaders)
+                .body(null);
     }
 }
