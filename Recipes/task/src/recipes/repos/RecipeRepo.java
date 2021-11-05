@@ -1,6 +1,7 @@
-package recipes;
+package recipes.repos;
 
 import org.springframework.stereotype.Repository;
+import recipes.model.Recipe;
 
 import java.util.ArrayList;
 import java.util.List;

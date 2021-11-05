@@ -1,7 +1,8 @@
-package recipes;
+package recipes.repos;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import recipes.model.Recipe;
 
 import java.util.List;
 

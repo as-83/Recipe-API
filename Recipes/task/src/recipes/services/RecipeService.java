@@ -1,12 +1,13 @@
-package recipes;
+package recipes.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import recipes.model.Recipe;
+import recipes.repos.RecipesCrudRepo;
 
 import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Locale;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
