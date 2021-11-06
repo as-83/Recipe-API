@@ -126,7 +126,7 @@ public class RecipesApplicationTest extends SpringTest {
         ),
         // 10
         new Recipe(
-            "11 ice-creamrecipe test",
+            "11 ice-cream recipe test",
             "veryDessert",
             "-",
             new String[]{"-", "--"},

@@ -56,11 +56,7 @@ public class RecipeController {
     public ResponseEntity<String> deleteRecipe(@PathVariable("id") long id) {
         HttpHeaders responseHeaders = new HttpHeaders();
         responseHeaders.set("Content-Type", "application/json");
-        HttpStatus status = HttpStatus.NOT_FOUND;
-        if (recipeService.deleteRecipe(id)) {
-            status =  HttpStatus.NO_CONTENT;
-        }
-        return ResponseEntity.status(status)
+        return ResponseEntity.status(recipeService.deleteRecipe(id))
                 .headers(responseHeaders)
                 .body("");
     }
@@ -69,11 +65,7 @@ public class RecipeController {
     public ResponseEntity<Recipe> updateRecipe(@PathVariable("id") long id, @Valid @RequestBody Recipe updatedRecipe){
         HttpHeaders responseHeaders = new HttpHeaders();
         responseHeaders.set("Content-Type", "application/json");
-        HttpStatus status = HttpStatus.NO_CONTENT;
-        if (! recipeService.updateRecipe(id, updatedRecipe)) {
-            status = HttpStatus.NOT_FOUND;
-        }
-        return ResponseEntity.status(status)
+        return ResponseEntity.status(recipeService.updateRecipe(id, updatedRecipe))
                 .headers(responseHeaders)
                 .body(null);
     }
@@ -99,7 +91,7 @@ public class RecipeController {
     }
 
     @PostMapping("/api/register")
-    public ResponseEntity<String> addNewUser(@RequestBody User user){
+    public ResponseEntity<String> addNewUser(@Valid @RequestBody User user){
         HttpHeaders responseHeaders = new HttpHeaders();
         responseHeaders.set("Content-Type", "application/json");
         HttpStatus status = HttpStatus.OK;

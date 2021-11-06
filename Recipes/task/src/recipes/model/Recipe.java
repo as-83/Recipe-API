@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
-@Table(name = "recipes")
+@Table(name = "recipe")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -22,8 +22,6 @@ public class Recipe {
     @Getter(onMethod_=@JsonIgnore)
     long id;
 
-
-
     @NotBlank(message = "Recipe name must not be blank!")
     private String name;
 
@@ -32,7 +30,6 @@ public class Recipe {
     private String category;
 
     @Column(name = "creation_date")
-
     private LocalDateTime date;
 
     @NotBlank(message = "Recipe name must not be blank!")
@@ -51,9 +48,10 @@ public class Recipe {
     @Size(min = 1)
     private List<String> directions;
 
-    @ManyToOne()
-    @JoinColumn(name = "author")
-    //@Column(name = "author")
+
     @Getter(onMethod_=@JsonIgnore)
+    @Setter(onMethod_=@JsonIgnore)
+    @ManyToOne
+    @JoinColumn(name = "author")
     private User author;
 }

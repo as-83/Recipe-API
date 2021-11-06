@@ -11,11 +11,11 @@ import recipes.repos.UserRepo;
 import java.util.Optional;
 
 @Service
-public class UserDetailsService implements org.springframework.security.core.userdetails.UserDetailsService {
+public class UserDetailsServiceImpl implements org.springframework.security.core.userdetails.UserDetailsService {
     private UserRepo userRepo;
 
     @Autowired
-    public UserDetailsService(UserRepo userRepo) {
+    public UserDetailsServiceImpl(UserRepo userRepo) {
         this.userRepo = userRepo;
     }
 

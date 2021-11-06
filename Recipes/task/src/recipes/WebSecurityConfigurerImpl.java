@@ -1,6 +1,7 @@
 package recipes;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -9,18 +10,19 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import recipes.services.UserDetailsService;
+import recipes.services.UserDetailsServiceImpl;
 
 @EnableWebSecurity
 public class WebSecurityConfigurerImpl extends WebSecurityConfigurerAdapter {
+    @Qualifier("userDetailsServiceImpl")
     @Autowired
-    UserDetailsService userDetailsService;
+    UserDetailsServiceImpl userDetailsService;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .mvcMatchers("/api/register").permitAll()
-                .mvcMatchers("/h2-console/**").permitAll()
+                .mvcMatchers("/console/**").permitAll()
                 .mvcMatchers("/actuator/shutdown").permitAll()
                 .anyRequest().authenticated()
                 .and()
@@ -36,7 +38,7 @@ public class WebSecurityConfigurerImpl extends WebSecurityConfigurerAdapter {
                 .passwordEncoder(getEncoder());
         auth
                 .inMemoryAuthentication() // user store 2
-                .withUser("Admin").password("hardcoded")
+                .withUser("Admin").password("hardcoded").roles("USER")
                 .and().passwordEncoder(NoOpPasswordEncoder.getInstance());
     }
 
